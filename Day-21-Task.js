@@ -31,14 +31,12 @@ console.log(twoSum([2,7,11,15],9)); // [0,1], TC=O(n), SC=O(1)
 // Log the reversed integers for a few test cases.
 
 let reverse = function(x) {
-    let myRevNum = x.toString().split("").reverse().join("");
+    let myRevNum = parseInt(x.toString().split("").reverse().join(""));
 
-    if(myRevNum.endsWith("-")){
-        myRevNum = "-" + myRevNum;
-        return parseInt(myRevNum);
-    }else{
-        return parseInt(myRevNum);
+    if(x < 0){
+        return myRevNum * -1;
     }
+    return myRevNum;
 };
 console.log(reverse("123"));
 
@@ -74,27 +72,69 @@ console.log(palindrome(121));
 // Create a few test cases with linked lists and log the merged list.
 
 
-function mergeTwoLists(list1, list2){
-    let curr = new ListNode();
-    let dummy = curr;
-    while(list1 && list2){
-        if(list1.val < list2.val){
+
+function mergeTwoLists(list1, list2) {
+    let curr = new ListNode(); // Create a new node to act as a current pointer
+    let dummy = curr; // Initialize a dummy node to start the merged list
+
+    // Traverse both lists while neither is null
+    while (list1 && list2) {
+        if (list1.val < list2.val) {
             curr.next = list1; // Attach the node from list1 to the merged list
             list1 = list1.next; // Move to the next node in list1
-        }else{
-            curr.next = list2;
-            list2 = list2.next;
+        } else {
+            curr.next = list2; // Attach the node from list2 to the merged list
+            list2 = list2.next; // Move to the next node in list2
         }
         curr = curr.next; // Move the current pointer to the last node in the merged list
     }
-    if(list1){
+
+    // If list1 is not exhausted, attach the remaining nodes from list1
+    if (list1) {
         curr.next = list1;
     }
-    if(list2){
+    // If list2 is not exhausted, attach the remaining nodes from list2
+    if (list2) {
         curr.next = list2;
     }
-    return dummy.next;
+
+    return dummy.next; // Return the merged list, skipping the dummy node
 }
+
+
+// Definition for singly-linked list node.
+class ListNode {
+    constructor(val, next = null) {
+        this.val = val;
+        this.next = next;
+    }
+}
+
+// Create linked list instances for testing
+const list1 = new ListNode(2);
+list1.next = new ListNode(3);
+list1.next.next = new ListNode(4);
+
+const list2 = new ListNode(1);
+list2.next = new ListNode(5);
+list2.next.next = new ListNode(6);
+
+// Merge the lists and log the result
+const mergedList = mergeTwoLists(list1, list2);
+
+// Helper function to print the linked list in a readable format
+function printList(head) {
+    let result = []; // Initialize an array to store the list values
+    while (head !== null) { // Traverse the linked list
+        result.push(head.val); // Append the current node's value to the result array
+        head = head.next; // Move to the next node
+    }
+    console.log(result.join(" -> ")); // Print the list values in a readable format
+}
+
+printList(mergedList); // Output the merged list in a readable format
+
+
 
 // Activity 5: Valid Parentheses
 // Task 5: Solve the "Valid Parentheses" problem on LeetCode.
