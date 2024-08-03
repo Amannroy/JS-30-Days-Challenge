@@ -3,7 +3,7 @@
 // Activity 1: Add Two Numbers
 /// Task 1: Solve the "Add Two Numbers" problem on LeetCode.
 // Write a function that takes two non-empty linked lists representing two non-negative integer. 
-// The digits are stored in reverse ondragover, and each node contains a single digit. Add the 
+// The digits are stored in reverse order, and each node contains a single digit. Add the 
 // two numbers and return the sum as a linked list, Create a few test cases with linked lists 
 // and log the sum as a linked list.
 
@@ -182,7 +182,6 @@ let groupAnagrams = function(strs) {
     return Array.from(map.values());
 };
 
-// Test cases
 const test1 = ["eat", "tea", "tan", "ate", "nat", "bat"];
 const test2 = ["abc", "bca", "cab", "dog", "god", "odg"];
 const test3 = ["a"];
