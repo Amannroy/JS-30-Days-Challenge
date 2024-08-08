@@ -106,50 +106,47 @@ console.log(maxArea([1,8,6,2,5,4,8,3,7]));
 
 
 let threeSum = function(nums) {
-    // Create a Set to store unique triplets as comma-separated strings
-    const result = new Set();
+     // Return an empty array if input is null or has fewer than 3 elements
+  if (!nums || nums.length < 3) return [];
 
-    // Sort the array to make it easier to use the two-pointer technique
-    nums.sort((a, b) => a - b);
-    
-    // Iterate over each number in the array, treating it as the fixed element of the triplet
-    for (let i = 0; i < nums.length - 2; i++) {
-        // Skip duplicate values for the fixed element
-        if (i > 0 && nums[i] === nums[i - 1]) continue;
-        
-        // Initialize two pointers: one starting just after the fixed element, the other at the end of the array
-        let left = i + 1;
-        let right = nums.length - 1;
-        const element = nums[i];
-        
-        // Use the two-pointer technique to find pairs that, together with the fixed element, sum to zero
-        while (left < right) {
-            // Calculate the sum of the fixed element and the two elements pointed to by the pointers
-            const sum = element + nums[left] + nums[right];
-            
-            if (sum === 0) {
-                // If the sum is zero, add the triplet to the result set (as a comma-separated string)
-                result.add([element, nums[left], nums[right]].join(","));
-                // Move both pointers to find new pairs
-                left++;
-                right--;
-                // Skip duplicate values for the left pointer
-                while (left < right && nums[left] === nums[left - 1]) left++;
-                // Skip duplicate values for the right pointer
-                while (left < right && nums[right] === nums[right + 1]) right--;
-            } else if (sum < 0) {
-                // If the sum is less than zero, move the left pointer to increase the sum
-                left++;
-            } else {
-                // If the sum is greater than zero, move the right pointer to decrease the sum
-                right--;
-            }
-        }
+  // Sort the elements in ascending order
+  nums.sort((a, b) => a - b);
+  // Initialize a Set to store unique triplets
+  const result = new Set();
+
+  // Iterate through the array to fix the first element
+  for (let i = 0; i < nums.length - 2; i++) {
+    // Initialize two pointers: left and right
+    let left = i + 1;
+    let right = nums.length - 1;
+
+    // Use a while loop to find the other two elements
+    while (left < right) {
+      // Calculate the sum of the current triplet
+      const sum = nums[i] + nums[left] + nums[right];
+
+      // If the sum is zero, add the triplet to the result set
+      if (sum === 0) {
+        // Convert the triplet to a string to store in the set
+        result.add([nums[i], nums[left], nums[right]].toString());
+        // Move both pointers to find other potential triplets
+        left++;
+        right--;
+      } else if (sum < 0) {
+        // If the sum is less than zero, move the left pointer to increase the sum
+        left++;
+      } else {
+        // If the sum is greater than zero, move the right pointer to decrease the sum
+        right--;
+      }
     }
-    
-    // Convert the Set of comma-separated strings to an array of number arrays
-    return Array.from(result).map(item => item.split(",").map(Number));
-};
+  }
+
+  // Convert the Set to an array of arrays
+  // Convert each string representation of a triplet back to an array of numbers
+  return Array.from(result).map(str => str.split(',').map(Number));
+}
+
 console.log(threeSum([-1,0,1,2,-1,-4]));
 
 
