@@ -38,7 +38,7 @@ let reverse = function(x) {
     }
     return myRevNum;
 };
-console.log(reverse("123"));
+console.log(reverse(123));
 
 // Activity 3: Palindrome Number
 // Task 3: Solve the "Palindrome Number" problem on leetCode.
